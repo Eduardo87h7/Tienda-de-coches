@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {width: 100%;}
+    table, th, td {border: solid 1px #ddd;
+    border-collapse: collapse; padding: 2px 3px; text-align: center;}
+
+</style>
+<body onload="createTable()">
+    <p>
+        <input type="button" id="addRow" value="Agregar Nuevo" onclick="addRow()"/>   
+    </p>
+    <div id="contenedor"></div>
+
+
+    <p><input type="button" id="bt" value="Enviar Datos" onclick="submit(this)"/></p>
+
+
+    <div id="contenedor1"></div>
+
+</body>
+    <script>
+        var arrHead = new Array();
+        arrHead= ['', 'Nombre del empleado', 'Puesto', 'Edad'];
+    
+        function createTable(){
+            var miTabla = document.createElement('table');
+            miTabla.setAttribute('id', 'miTabla');
+
+            var tr = miTabla.insertRow(-1);
+                     //crear encabezados
+            for (var h = 0; h < arrHead.length; h++ ){
+                var th = document.createElement('th');
+                th.innerHTML = arrHead[h];
+                tr.appendChild(th); //agregar los tr a los th
+            }
+
+            var div = document.getElementById('contenedor');
+            div.appendChild(miTabla); //add table to a container
+
+        }
+
+        function addRow(){
+            var laTabla = document.getElementById('miTabla');
+
+            var rowCnt = laTabla.rows.length;
+            var tr = laTabla.insertRow(rowCnt);
+
+            for(var c = 0; c < arrHead.length; c++){
+            var td = document.createElement('td');
+            td = tr.insertCell(c);
+
+            if (c == 0) {
+                var button = document.createElement('input');
+
+                button.setAttribute('type', 'button');
+                button.setAttribute('value', 'Borrar');
+
+                button.setAttribute('onclick', 'removeRow(this)');
+                td.appendChild(button);
+
+                
+            }
+            else{
+                var ele = document.createElement('input');
+                ele.setAttribute('type', 'text');
+                ele.setAttribute('value', '');
+                td.appendChild(ele);
+            }
+
+        }
+
+    }
+    function removeRow(oButton){
+        var laTabla = document.getElementById('miTabla');
+        laTabla.deleteRow(oButton.parentNode.rowIndex);
+    }
+   
+
+function submit(element){
+    var table = document.getElementById('miTabla');  
+var count = table.rows.length;  
+for(var i=1; i<count; i++) {    
+    console.log(table.rows[i]);
+    var div = document.getElementById('contenedor1');
+}
+var nuevaTabla = document.getElementById("miTabla").cloneNode(true);
+document.body.appendChild(nuevaTabla);
+    var resume_table = document.getElementById("miTabla");
+
+for (var i = 0, row; row = resume_table.rows[i]; i++) {
+ 
+  for (var j = 0, col; col = row.cells[j]; j++) {
+  
+    console.log(`Txt: ${col.innerText} \tFila: ${i} \t Celda: ${j}`);
+  }
+  
+}
+alert('funcionando');
+
+}
+
+
+
+
+</script>
+</html> 

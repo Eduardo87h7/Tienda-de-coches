@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GARCIA RIAÑO</title>
+</head>
+<style>
+  .table1{
+    border: solid 1px #ffffff;
+  border-collapse: collapse; padding: 2px 3px; text-align: center;
+  }
+  table {width: 100%;}
+  table, th, td {border: solid 1px #dddddd;
+  border-collapse: collapse; padding: 2px 3px; text-align: center;
+
+}
+
+</style>
+
+<body onload="createTabla()">
+  <center><h4>EXAMEN GARCIA RIAÑO</h4></center>
+    <p>
+        <input type="button" id="addRow" value="Agregar nuevo"  onclick="addRow()" />
+    </p>
+   
+    <div id="contenedor"></div>
+    <p>
+        <input type="button" id="bt" value="Enviar datos"  onclick="submit()" />
+    </p>
+
+  <div class="container">
+<table id="miTabla2" class="tabla1">
+  <center>
+    <thead>
+    <tr>
+      <th>Nombre del empleado</th>
+      <th>Puesto</th>
+      <th>Edad</th>
+    </tr>
+  </thead>
+</center>
+</table>
+</div>
+</body>
+    <script>
+       var arrHead = new Array();
+arrHead =['','Nombre del empleado','Puesto','Edad' ]; // Encabezado de la tabla
+
+function createTabla() {
+    var miTabla = document.createElement('table');
+    miTabla.setAttribute('id','miTabla'); 
+
+    var tr = miTabla.insertRow(-1);
+    
+
+    //creacion de encabezados
+    for(var h =0 ; h < arrHead.length ; h++)
+    {
+        var th = document.createElement('th')
+        th.innerHTML =arrHead[h];
+        tr.appendChild(th);
+    }
+
+    var div = document.getElementById('contenedor');
+    div.appendChild(miTabla);
+}
+
+
+
+function addRow(){
+    var laTabla = document.getElementById('miTabla');
+
+    var rowCnt = laTabla.rows.length;
+    var tr = laTabla.insertRow(rowCnt); 
+
+    for( var c = 0; c< arrHead.length ; c++)
+    {
+        var td = document.createElement('td');
+        td = tr.insertCell(c);
+
+        if(c ==0)
+        {
+            var button = document.createElement('input');
+
+            button.setAttribute('type', 'button');
+            button.setAttribute('value','Borrar');
+
+            button.setAttribute('onclick' , 'removeRow(this)');
+            td.appendChild(button);
+        }
+        else
+        {
+            var ele = document.createElement('input');
+            ele.setAttribute('type', 'text');
+            ele.setAttribute('value', '');
+
+            td.appendChild(ele);
+        }
+    }
+}
+
+function removeRow(oButton){
+    var laTabla = document.getElementById('miTabla');
+    laTabla.deleteRow(oButton.parentNode.parentNode.rowIndex);
+}
+
+let tabla = document.getElementById('miTabla2');
+
+
+function submit(element) {
+ var miTabla = document.getElementById('miTabla');
+ 
+
+  var rowCnt = miTabla.rows.length;
+var t=1;
+var y=0;
+    for (row = t; row < rowCnt; row++) {
+      //creando tr
+  let tr = document.createElement('tr');
+
+
+    for (c = y; c < miTabla.rows[y].cells.length; c++) {  
+// el for recibe el valor de mi tabla 
+
+         var element = miTabla.rows.item(row).cells[c];
+
+         // element toma los valores en el recorrido
+      if (element.childNodes[y].getAttribute('type') == 'text') {
+             let td = document.createElement('td');
+//el if incerta una nueva seccion cada que cumpla el parametro
+         td.appendChild(document.createTextNode(element.childNodes[y].value));
+         //  se agregan los elementos al td
+      
+        tabla.appendChild(td);
+
+          } 
+        
+        }
+        // se agregan los elementos al tr
+        tabla.appendChild(tr);
+    }   
+}
+
+</script>
+</html>
